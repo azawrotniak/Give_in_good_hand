@@ -8,14 +8,18 @@ class LandingPage(View):
     template_name = "giving_gifts_app/index.html"
 
     def get(self, request, *args, **kwargs):
-
         quantity_bag = Donation.objects.all().aggregate(Sum('quantity'))
-
         quantity_institution = Donation.objects.all().aggregate(Count('institution', distinct=True))
-        
+        foundations = Institution.objects.filter(type=1)
+        organizations = Institution.objects.filter(type=2)
+        collections = Institution.objects.filter(type=3)
+                
         context = {
             "quantity_bag": quantity_bag["quantity__sum"],
             "quantity_institution": quantity_institution["institution__count"],
+            "foundations": foundations,
+            "organizations": organizations,
+            "collections": collections,
         }
         return render(request, self.template_name, context)
 
