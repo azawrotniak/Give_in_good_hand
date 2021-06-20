@@ -35,5 +35,16 @@ class Login(View):
 
 
 class Register(View):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         return render(request, "giving_gifts_app/register.html")
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+
+
+
