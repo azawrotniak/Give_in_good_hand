@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view.LandingPage.as_view(), name="landing-page"),
     path('add_donation/', view.AddDonation.as_view(), name="add-donation"),
-    path('login/', view.Login.as_view(), name="add-donation"),
-    path('register/', view.Register.as_view(), name="add-donation"),
+    path('login/', view.Login.as_view(), name="login"),
+    path('register/', view.Register.as_view(), name="register"),
 ]
