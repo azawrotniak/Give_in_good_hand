@@ -62,11 +62,11 @@ class Register(View):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
 
-        #dodatkowo zrobić walidację po js, żeby nie wywalić strony
-        if password == password2:
+        #additionally do a validation in javascript
+        if password == password2 and len(password)>=8 and hasNumbers(password):
             User.objects.create_user(email = email, password = password, first_name= first_name, last_name = last_name)
         return redirect('/login/')
 
 
-
-
+def hasNumbers(inputString):
+    return any(char.isdigit() for char in inputString)
