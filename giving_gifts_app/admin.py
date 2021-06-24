@@ -5,19 +5,20 @@ from django.utils.translation import ugettext_lazy as _
 # Register your models here.
 from .models import Category, Donation, Institution, User
 
-admin.site.register(Category)
-admin.site.register(Donation)
-admin.site.register(Institution)
+
+@admin.register(Institution)
+class InstitutionAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 
-class DonationAdmin(admin.ModelAdmin): # https://docs.djangoproject.com/pl/3.2/intro/tutorial07/
+@admin.register(Donation)
+class DonationAdmin(admin.ModelAdmin):
     list_display = ('user', 'institution', 'pick_up_date')
-
-
 
 
 @admin.register(User)

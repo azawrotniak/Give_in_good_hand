@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Sum
 from django.views import View
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from .models import Category, Donation, Institution, User
 
@@ -25,9 +27,19 @@ class LandingPage(View):
         return render(request, self.template_name, context)
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
+    login_url = reverse_lazy('login')
+    template_name = "giving_gifts_app/form.html"
+    
     def get(self, request):
-        return render(request, "giving_gifts_app/form.html")
+        categories = Category.objects.all()
+        institutions = Institution.objects.all()
+
+        context = {
+            "categories": categories,
+            "institutions": institutions,
+        }
+        return render(request, self.template_name, context)
 
 
 class Login(View):
